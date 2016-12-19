@@ -1,0 +1,217 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cheftrialsdisks999Type": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
+    },
+    "jomitchef-client2Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jomitchef-client2AdminUserName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jomitchef-client2AdminPublicKey": {
+      "type": "string"
+    },
+    "jomitchef-client2UbuntuOSVersion": {
+      "type": "string",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS"
+      ]
+    },
+    "virtualNetworkName": {
+      "type": "string"
+    },
+    "virtualNetworkResourceGroup": {
+      "type": "string"
+    },
+    "jomitchef-client2-ipDnsName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "chef_node_name": {
+      "type": "string"
+    },
+    "chef_server_url": {
+      "type": "string"
+    },
+    "validation_client_name": {
+      "type": "string"
+    },
+    "validation_key": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "cheftrialsdisks999Name": "cheftrialsdisks999",
+    "jomitchef-client2ImagePublisher": "Canonical",
+    "jomitchef-client2ImageOffer": "UbuntuServer",
+    "jomitchef-client2OSDiskName": "jomitchef-client2OSDisk",
+    "jomitchef-client2VmSize": "Standard_D2_v2",
+    "jomitchef-client2VnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+    "jomitchef-client2SubnetRef": "[concat(variables('jomitchef-client2VnetID'), '/subnets/', 'main')]",
+    "jomitchef-client2StorageAccountContainerName": "vhds",
+    "jomitchef-client2NicName": "[concat(parameters('jomitchef-client2Name'), 'NetworkInterface')]",
+    "jomitchef-client2-ipName": "jomitchef-client2-ip"
+  },
+  "resources": [
+    {
+      "name": "[variables('cheftrialsdisks999Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "cheftrialsdisks999"
+      },
+      "properties": {
+        "accountType": "[parameters('cheftrialsdisks999Type')]"
+      }
+    },
+    {
+      "name": "[variables('jomitchef-client2NicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "westus",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', variables('jomitchef-client2-ipName'))]"
+      ],
+      "tags": {
+        "displayName": "jomitchef-client2Nic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('jomitchef-client2SubnetRef')]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('jomitchef-client2-ipName'))]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('jomitchef-client2Name')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('cheftrialsdisks999Name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('jomitchef-client2NicName'))]"
+      ],
+      "tags": {
+        "displayName": "jomitchef-client2"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('jomitchef-client2VmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('jomitchef-client2Name')]",
+          "adminUsername": "[parameters('jomitchef-client2AdminUsername')]",
+          //"adminPassword": "[parameters('jomitchef-client2AdminPassword')]"
+          "linuxConfiguration": {
+            "disablePasswordAuthentication":  true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[concat('/home/', parameters('jomitchef-client2AdminUsername'), '/.ssh/authorized_keys')]",
+                  "keyData": "[parameters('jomitchef-client2AdminPublicKey')]"
+                }
+              ]
+            }
+          }
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('jomitchef-client2ImagePublisher')]",
+            "offer": "[variables('jomitchef-client2ImageOffer')]",
+            "sku": "[parameters('jomitchef-client2UbuntuOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "jomitchef-client2OSDisk",
+            "vhd": {
+              "uri": "[concat('https://', variables('cheftrialsdisks999Name'), '.blob.core.windows.net/', variables('jomitchef-client2StorageAccountContainerName'), '/', variables('jomitchef-client2OSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('jomitchef-client2NicName'))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[variables('jomitchef-client2-ipName')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "location": "westus",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "jomitchef-client2-ip"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('jomitchef-client2-ipDnsName')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('jomitchef-client2Name'),'/', 'LinuxChefClient')]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('jomitchef-client2Name'))]"
+      ],
+      "properties": {
+        "publisher": "Chef.Bootstrap.WindowsAzure",
+        "type": "LinuxChefClient",
+        "typeHandlerVersion": "1210.12",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "bootstrap_options": {
+            "chef_node_name": "[parameters('chef_node_name')]",
+            "chef_server_url": "[parameters('chef_server_url')]",
+            "validation_client_name": "[parameters('validation_client_name')]",
+            "node_ssl_verify_mode": "none",
+            "environment": "_default"
+          },
+          //"runlist": "recipe[awesome_customers_rhel],recipe[yum],role[base]",
+          "runlist": "",
+          "client_rb": "",
+          "validation_key_format": "plaintext"
+        },
+        "protectedSettings": {
+          "validation_key": "[parameters('validation_key')]"
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "validation_key": {
+      "value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAxETRdT7Ba+o94rwdsqf/UaE9zm+vHP0L53RxUnCUNeFehk5X\npPSXDFqBDqTv+w9yfscBw/7g7mrnolJxS5vDB5dSFR61pRV2Bb6gMyC7GV/N3T3r\nyWjAAmhwmQywC0L14vBAUTIW7GL+HHlBLRarIkA6y20tIJ7aBbg4Jgan6oUaaHiN\nki67+r3X/TGimv3dHk3g1qPgwBqe/NLDwuEsx+lxYCcRxLzQsLQBsbFGySOMXyJd\nAMU8Nvq54zETrgstvBwOTdvLwZxmaqVmNU+eMRkx/DwT59A0aczsMINi8G7hGrWd\np62lT1pSVBAcEb0fDXcidKBklVOXMUnCVfyIPQIDAQABAoIBAQCHFqbkgBE5aby2\ntqvqL994G/cig5SP60uqP2dQStR4UWpyHrIMg50Dj7eMkNHsh7FSuT7p3CCNeV99\nRilc1RTjwK9qgfycZ60YPyCckEa3LE3RnbEQq9ycy63UafsxhSEg1iQuvr8wbOJi\nTsMheZzIslTFd5u7/BosHaPn6GTi8QtL1stoJ9l1UUT1E7Uc/nraEz6LsnWGNfuK\n9dD8uEdpCX8sO/EVrz7vFaXxnlyUxC/eCo1fCvFQxfRQKp8eINASFaDAWUMSoabZ\nFyu5hOLcwLus9RRvL6j+5JcgKycQGmvOOv8J1sLwWgnSrbPJf+J3EuXm/tX2YgMN\nxH/ErXOxAoGBAP3TYTtlXp/89R1z9l7xT0fTREgZP3MnZn3YyLn40pSIHL9Bkc5Q\nwqNuASgHMP+UB0UAXKCmXrPn5/LxWdeMhUGq+nifxhiB/LzOjzVAWyjoCfhCpUL1\n6TBkY4jGXXfjbUO9GvIlr+5kO8ZKUToY4UB6X2mdApKnOSjpuXetJmaHAoGBAMXz\nOHgGEQCnEr5zNSsBZrZjXHO4akFe+kQMt63V5lhQxlxpwFe3QuhTrPzPuqcf259e\nn1oAxl/VoHLHn3CQ8L2sFD45aZtMrDU0q/2xpIxXIu12Y8DqnWUlAKgmMN1MVXkV\n68YQM/0GPdbm8pTt35e1LpOUPEpxc6kZajaVyIgbAoGAHE3R7dmj75s5igtAUd3+\nxTedyZxnIuQl3aqq13ITqVR0QC+DnsoKqka+AkSrBhTvqpYbvh5POSiHCOQ47HxS\n77utKn5GjL0R/cva1ElU4P7e/bwQyaK6WhcXskzMZ24I5SDVPGNPdvneYIIxBJV5\nqML8mL5VZx0WlqVZdSrtuUkCgYA2lpk2+C1OKcTQgoLiBjPmDkabnvqmZmPLyloI\n9VjdeAEL0Rn61o379b9ZxItrtSxiqbx2HIqYORhTLtu4NjA9jivS8RA/hIhk786S\nWp/PF+SI6cIenFSlZOvmcwm8rWVQzAvGBgfgOg1pqyywh1zGwG9EwXdS7DCCLIEO\n5oVziwKBgQCF3GSx8Jk10GSPlLHsghM0ENBZ34bzbGARfR72H1oPQFJ2J0USeAmw\ndYrn4iGmH2xUVkvVTNo8CjBZ/BJ4HzP9Msa4ESpBuMHj6BdNwRrU6Pqw8wwXZsAs\nuLW+uqU7KdHo0ctIy+pGibscU0nLcMUFpDx14rh4GBl/obLfDkZ1KQ==\n-----END RSA PRIVATE KEY-----"
+    },
+      "jomitchef-client2Name": {
+          "value": "jomitchef-client2"
+      },
+      "jomitchef-client2AdminUserName": {
+          "value": "jomit"
+      },
+      "jomitchef-client2-ipDnsName": {
+          "value": "jomitchef-client2"
+      },
+      "jomitchef-client2AdminPublicKey": {
+          "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiQa1ywWG0rmJuRQf2FpfI6gIv575XdAJUjmuiXoOTIlq3kCRNfQ2ySZB8rOGbWcwUPcPeTmJfKSKBCjaAYdDIRQ6SjBck5GGNiFBlrxiOR5jfOZGJuemoAXHYnM2qvWdKsTb1nlWtjdUkYZdIj6T/k0yvRvzbxJQG6DpsSVdMTgOn9vxUXn1xIik79V9gsE1hqJc8Rc7u07qDhm0E8dOAOwfOZDvwth6kko0uigDIQtHlg9N4bGhmkVkVte+Cku8sPgn8CpKxecuihnfYCvh+XXOPsB1L6kkRp3eIh/ztPMAKoQOLS0wQP6JVAxRpkShTKJOQmMslrg7a9LUuXvzEQ== rsa-key-jomit"
+      },
+      "chef_node_name": {
+          "value": "jomitnode2"
+      },
+      "chef_server_url": {
+          "value": "https://jomitchefsrv.westus.cloudapp.azure.com/organizations/jack"
+      },
+      "validation_client_name": {
+          "value": "jack-validator"
+      },
+      "cheftrialsdisks999Type": {
+          "value": "Standard_LRS"
+      },
+      "jomitchef-client2UbuntuOSVersion": {
+          "value": "14.04.2-LTS"
+      },
+      "virtualNetworkName": {
+          "value": "vNetChefTrials"
+      },
+      "virtualNetworkResourceGroup": {
+          "value": "ChefTrials"
+      }
+  }
+}
