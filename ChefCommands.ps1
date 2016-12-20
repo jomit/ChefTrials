@@ -36,7 +36,7 @@ sudo chef-client -l debug
 sudo tail -f /var/log/azure/Chef.Bootstrap.WindowsAzure.LinuxChefClient/1210.12.106.1000/chef-client.log
 
 
-# Create VM with Chef extension using arm template (c:\myapps\chef\cheftrials\cheftrials)
+# Create VM with Chef extension using arm template (c:\github\ChefTrials\cheftrials)
 # ======================================================================================================
 
 azure login
@@ -56,11 +56,11 @@ azure group deployment create -f "azuredeploy.json" -e "azuredeploy.parameters.j
 
 chef generate repo test-repo
 
-cd C:\MyApps\Chef\test-repo\cookbooks
+cd C:\github\ChefTrials\test-repo\cookbooks
 
 chef generate cookbook helloworld   # or knife cookbook create helloworld
 
-cd C:\MyApps\Chef\test-repo\cookbooks\helloworld\recipes
+cd C:\github\ChefTrials\test-repo\cookbooks\helloworld\recipes
 
 # - Change the content of the default.rb file as below:
 # file '/tmp/chefmessage' do
@@ -75,7 +75,7 @@ chef-client --local-mode default.rb
 
 # - Copy .chef folder from chef-repo into the helloworld folder
 
-cd C:\MyApps\Chef\test-repo
+cd C:\github\ChefTrials\test-repo
 
 knife cookbook upload helloworld
 
@@ -85,5 +85,22 @@ knife cookbook upload helloworld
 # - Login to the node
 
 sudo chef-client   # to apply the policies manually
+
+
+
+# Generate Service Principle and assign Contribute role for Subscription
+# ==========================================================================
+
+azure account show
+#> note the subscription id
+
+azure ad sp create -n <sp-name> -p <password>
+
+#> note the Object Id
+
+azure role assignment create --objectId  <object id> -o Contributor -c /subscriptions/<subscription id>/
+
+
+
 
 
