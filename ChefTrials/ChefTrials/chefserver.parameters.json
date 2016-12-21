@@ -1,0 +1,57 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "westus"
+    },
+    "virtualMachineName": {
+      "value": "chefservertest"
+    },
+    "virtualMachineSize": {
+      "value": "Standard_DS2_v2"
+    },
+    "adminUsername": {
+      "value": "jomit"
+    },
+    "storageAccountName": {
+      "value": "chefservertestdisks687"
+    },
+    "virtualNetworkName": {
+      "value": "vNetChefTrials"
+    },
+    "networkInterfaceName": {
+      "value": "chefservertest30"
+    },
+    "networkSecurityGroupName": {
+      "value": "chefservertest-nsg"
+    },
+    //"adminPassword": {
+    //  "value": null
+    //},
+    "adminsshkey": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiQa1ywWG0rmJuRQf2FpfI6gIv575XdAJUjmuiXoOTIlq3kCRNfQ2ySZB8rOGbWcwUPcPeTmJfKSKBCjaAYdDIRQ6SjBck5GGNiFBlrxiOR5jfOZGJuemoAXHYnM2qvWdKsTb1nlWtjdUkYZdIj6T/k0yvRvzbxJQG6DpsSVdMTgOn9vxUXn1xIik79V9gsE1hqJc8Rc7u07qDhm0E8dOAOwfOZDvwth6kko0uigDIQtHlg9N4bGhmkVkVte+Cku8sPgn8CpKxecuihnfYCvh+XXOPsB1L6kkRp3eIh/ztPMAKoQOLS0wQP6JVAxRpkShTKJOQmMslrg7a9LUuXvzEQ== rsa-key-jomit"
+    },
+    "storageAccountType": {
+      "value": "Premium_LRS"
+    },
+    "diagnosticsStorageAccountName": {
+      "value": "chefservertestdiag410"
+    },
+    "diagnosticsStorageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "diagnosticsStorageAccountId": {
+      "value": "Microsoft.Storage/storageAccounts/chefservertestdiag410"
+    },
+    "subnetName": {
+      "value": "main"
+    },
+    "publicIpAddressName": {
+      "value": "chefservertest-ip"
+    },
+    "publicIpAddressType": {
+      "value": "Dynamic"
+    }
+  }
+}
